@@ -339,8 +339,15 @@ def compute_layer_norm_mean_and_variance(x):
     variance = x.var(dim=-1, keepdim=True, unbiased=False)
     return mean, variance
 
-# Step 36 - normalize_and_scale_with_gamma_beta (not yet solved)
-# TODO: implement
+# Step 36 - normalize_and_scale_with_gamma_beta
+import torch
+
+def normalize_and_scale_with_gamma_beta(x, gamma, beta, eps=1e-5):
+    # TODO: standardize x along the last axis then apply gamma and beta affine transform
+
+    mean, variance = compute_layer_norm_mean_and_variance(x)
+    x = (x - mean) / torch.sqrt(variance + eps)
+    return gamma * x + beta
 
 # Step 37 - apply_residual_add_and_norm (not yet solved)
 # TODO: implement
